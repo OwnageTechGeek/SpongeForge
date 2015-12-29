@@ -26,6 +26,10 @@ package org.spongepowered.mod;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.mojang.authlib.GameProfile;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.api.GameDictionary;
@@ -39,6 +43,7 @@ import org.spongepowered.api.util.annotation.NonnullByDefault;
 import org.spongepowered.api.world.TeleportHelper;
 import org.spongepowered.common.SpongeGame;
 import org.spongepowered.common.registry.SpongeGameRegistry;
+import org.spongepowered.common.world.FakePlayer;
 import org.spongepowered.mod.registry.SpongeForgeGameDictionary;
 
 import java.nio.file.Path;
@@ -62,6 +67,17 @@ public final class SpongeModGame extends SpongeGame {
     @Override
     public GameDictionary getGameDictionary() {
         return SpongeForgeGameDictionary.instance;
+    }
+
+    @Override
+    public FakePlayer.Factory createFakePlayerFactory() {
+        return new FakePlayer.Factory() {
+
+            @Override
+            public EntityPlayerMP getPlayer(WorldServer world, GameProfile profile) {
+                return FakePlayerFactory.get(world, profile);
+            }
+        };
     }
 
 }
