@@ -30,7 +30,6 @@ import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.Transaction;
 import org.spongepowered.api.entity.Entity;
-import org.spongepowered.api.entity.EntitySnapshot;
 import org.spongepowered.api.entity.projectile.Projectile;
 import org.spongepowered.api.entity.projectile.source.ProjectileSource;
 import org.spongepowered.api.event.cause.Cause;
@@ -111,7 +110,6 @@ public abstract class MixinEventWorldExplosion extends MixinEvent implements Exp
     @Mixin(value = net.minecraftforge.event.world.ExplosionEvent.Detonate.class, remap = false)
     static abstract class Detonate extends MixinEventWorldExplosion implements ExplosionEvent.Detonate {
 
-        private ImmutableList<EntitySnapshot> entitySnapshots;
         private ImmutableList<Transaction<BlockSnapshot>> blockTransactions;
 
         @Shadow @Final private List<net.minecraft.entity.Entity> entityList;
@@ -142,12 +140,6 @@ public abstract class MixinEventWorldExplosion extends MixinEvent implements Exp
                 builder.add(new Transaction<>(originalSnapshot, replacementSnapshot)).build();
             }
             this.blockTransactions = builder.build();
-
-            ImmutableList.Builder<EntitySnapshot> entityListBuilder = ImmutableList.builder();
-            for (net.minecraft.entity.Entity entity : this.entityList) {
-                entityListBuilder.add(((Entity) entity).createSnapshot());
-            }
-            this.entitySnapshots = entityListBuilder.build();
         }
 
         @Override

@@ -87,12 +87,11 @@ import org.spongepowered.api.event.entity.ChangeEntityExperienceEvent;
 import org.spongepowered.api.event.entity.CollideEntityEvent;
 import org.spongepowered.api.event.entity.ConstructEntityEvent;
 import org.spongepowered.api.event.entity.DestructEntityEvent;
-import org.spongepowered.api.event.entity.DismountEntityEvent;
 import org.spongepowered.api.event.entity.HarvestEntityEvent;
 import org.spongepowered.api.event.entity.HealEntityEvent;
 import org.spongepowered.api.event.entity.InteractEntityEvent;
-import org.spongepowered.api.event.entity.MountEntityEvent;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
+import org.spongepowered.api.event.entity.RideEntityEvent;
 import org.spongepowered.api.event.entity.SpawnEntityEvent;
 import org.spongepowered.api.event.entity.TargetEntityEvent;
 import org.spongepowered.api.event.item.inventory.ChangeInventoryEvent;
@@ -169,7 +168,7 @@ public class SpongeModEventManager extends SpongeEventManager {
                     .put(LivingAttackEvent.class, org.spongepowered.api.event.entity.AttackEntityEvent.class)
                     .put(LivingDeathEvent.class, DestructEntityEvent.Death.class)
                     .putAll(LivingDropsEvent.class, DropItemEvent.Destruct.class, DropItemEvent.Custom.class)
-                    .putAll(LivingEntityUseItemEvent.class, useItemStack)
+                    .putAll(LivingEntityUseItemEvent.class, this.useItemStack)
                     .put(LivingEvent.LivingJumpEvent.class, MoveEntityEvent.class)
                     .put(LivingExperienceDropEvent.class, HarvestEntityEvent.TargetPlayer.class)
                     .put(LivingHealEvent.class, HealEntityEvent.class)
@@ -178,19 +177,19 @@ public class SpongeModEventManager extends SpongeEventManager {
                     .putAll(ZombieEvent.class, SpawnEntityEvent.ChunkLoad.class, SpawnEntityEvent.Spawner.class)
 
                     .put(MinecartCollisionEvent.class, CollideEntityEvent.Impact.class)
-                    .putAll(MinecartInteractEvent.class, interactEntity)
+                    .putAll(MinecartInteractEvent.class, this.interactEntity)
 
                     .put(ArrowLooseEvent.class, SpawnEntityEvent.Spawner.class)
-                    .putAll(ArrowNockEvent.class, useItemStack)
+                    .putAll(ArrowNockEvent.class, this.useItemStack)
                     .put(AttackEntityEvent.class, org.spongepowered.api.event.entity.AttackEntityEvent.class)
 
-                    .putAll(BonemealEvent.class, interactBlock)
-                    .putAll(BonemealEvent.class, useItemStack)
+                    .putAll(BonemealEvent.class, this.interactBlock)
+                    .putAll(BonemealEvent.class, this.useItemStack)
 
                     .putAll(EntityItemPickupEvent.class, ChangeInventoryEvent.Pickup.class,  DestructEntityEvent.class)
 
-                    .putAll(FillBucketEvent.class, interactBlock)
-                    .putAll(FillBucketEvent.class, useItemStack)
+                    .putAll(FillBucketEvent.class, this.interactBlock)
+                    .putAll(FillBucketEvent.class, this.useItemStack)
 
                     .putAll(PlayerDestroyItemEvent.class, DestructEntityEvent.class, DropItemEvent.Destruct.class)
                     .putAll(PlayerDropsEvent.class, DropItemEvent.Dispense.class, DropItemEvent.Destruct.class, DestructEntityEvent.Death.class)
@@ -207,14 +206,14 @@ public class SpongeModEventManager extends SpongeEventManager {
 
                     .putAll(PlayerPickupXpEvent.class, ChangeEntityExperienceEvent.class, DestructEntityEvent.class)
 
-                    .putAll(UseHoeEvent.class, interactBlock)
-                    .putAll(UseHoeEvent.class, useItemStack)
+                    .putAll(UseHoeEvent.class, this.interactBlock)
+                    .putAll(UseHoeEvent.class, this.useItemStack)
 
                     .putAll(EntityEvent.EntityConstructing.class, ConstructEntityEvent.Pre.class, ConstructEntityEvent.Post.class)
-                    .putAll(EntityEvent.EntityConstructing.class, spawnEntityEvent)
+                    .putAll(EntityEvent.EntityConstructing.class, this.spawnEntityEvent)
                     .put(EntityEvent.EnteringChunk.class, MoveEntityEvent.class)
-                    .putAll(EntityJoinWorldEvent.class, spawnEntityEvent)
-                    .putAll(EntityMountEvent.class, MountEntityEvent.class, DismountEntityEvent.class)
+                    .putAll(EntityJoinWorldEvent.class, this.spawnEntityEvent)
+                    .putAll(EntityMountEvent.class, RideEntityEvent.Dismount.class, RideEntityEvent.Mount.class)
                     .putAll(EntityStruckByLightningEvent.class, LightningEvent.Pre.class, LightningEvent.Strike.class, LightningEvent.Post.class)
                     .put(EntityTravelToDimensionEvent.class, MoveEntityEvent.Teleport.Portal.class)
 
